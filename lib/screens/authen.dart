@@ -47,9 +47,12 @@ class _AuthenState extends State<Authen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomPadding: false,
         body: Container(
-      margin: EdgeInsets.only(top: 70.0),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.white, Colors.yellow[900]], begin: Alignment(-1, -1))),
+      padding: EdgeInsets.only(top: 70.0),
       alignment: Alignment(0, -1),
       child: Column(
         children: <Widget>[
