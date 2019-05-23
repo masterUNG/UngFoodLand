@@ -13,6 +13,9 @@ class _RegisterState extends State<Register> {
       icon: Icon(Icons.cloud_upload),
       onPressed: () {
         print('You Click Register');
+        if (formKey.currentState.validate()) {
+          
+        }
       },
     );
   }
@@ -21,6 +24,11 @@ class _RegisterState extends State<Register> {
     return TextFormField(
       decoration:
           InputDecoration(labelText: 'Name :', hintText: 'Type Your Name'),
+      validator: (String value) {
+        if (value.length == 0) {
+          return 'Please Fill Name in Blank';
+        }
+      },
     );
   }
 
@@ -45,7 +53,7 @@ class _RegisterState extends State<Register> {
         title: Text('Register'),
         actions: <Widget>[registerButton()],
       ),
-      body: Form(
+      body: Form(key: formKey,
         child: Container(
           padding: EdgeInsets.all(50.0),
           child: Column(
