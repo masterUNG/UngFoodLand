@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' show get;
+import 'dart:convert';
 
 class Register extends StatefulWidget {
   @override
@@ -18,9 +20,21 @@ class _RegisterState extends State<Register> {
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
           print('name = $name, user = $user, password = $password');
+          uploadValueToServer();
         }
       },
     );
+  }
+
+  void uploadValueToServer() async {
+    String urlPHP =
+        'https://www.androidthai.in.th/tid/addUserUng.php?isAdd=true&Name=$name&User=$user&Password=$password';
+
+        print(urlPHP);
+
+    var response = await get(urlPHP);
+    var resultString = json.decode(response.body);
+    print('resultString ==> $resultString');
   }
 
   Widget nameTextFromField() {
