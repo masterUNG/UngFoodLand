@@ -8,12 +8,17 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
 
+  String name, user, password;
+
   Widget registerButton() {
     return IconButton(
       icon: Icon(Icons.cloud_upload),
       onPressed: () {
         print('You Click Register');
-        if (formKey.currentState.validate()) {}
+        if (formKey.currentState.validate()) {
+          formKey.currentState.save();
+          print('name = $name, user = $user, password = $password');
+        }
       },
     );
   }
@@ -27,6 +32,9 @@ class _RegisterState extends State<Register> {
           return 'Please Fill Name in Blank';
         }
       },
+      onSaved: (String value) {
+        name = value;
+      },
     );
   }
 
@@ -39,6 +47,9 @@ class _RegisterState extends State<Register> {
           return 'กรุณากรอก User ด้วยสิคะ';
         }
       },
+      onSaved: (String value) {
+        user = value;
+      },
     );
   }
 
@@ -50,6 +61,9 @@ class _RegisterState extends State<Register> {
         if (value.length <= 5) {
           return 'กรุณา กรอก Password ให้มากกว่า 6 ตัวอักษร คะ';
         }
+      },
+      onSaved: (String value) {
+        password = value;
       },
     );
   }
