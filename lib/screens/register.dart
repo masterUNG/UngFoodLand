@@ -12,7 +12,7 @@ class _RegisterState extends State<Register> {
 
   String name, user, password;
 
-  Widget registerButton() {
+  Widget registerButton(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.cloud_upload),
       onPressed: () {
@@ -20,13 +20,13 @@ class _RegisterState extends State<Register> {
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
           print('name = $name, user = $user, password = $password');
-          uploadValueToServer();
+          uploadValueToServer(context);
         }
       },
     );
   }
 
-  void uploadValueToServer() async {
+  void uploadValueToServer(BuildContext context) async {
     String urlPHP =
         'https://www.androidthai.in.th/tid/addUserUng.php?isAdd=true&Name=$name&User=$user&Password=$password';
 
@@ -35,6 +35,15 @@ class _RegisterState extends State<Register> {
     var response = await get(urlPHP);
     var resultString = json.decode(response.body);
     print('resultString ==> $resultString');
+
+    if (resultString.toString() == 'true') {
+      
+      // Create POP
+      Navigator.of(context).pop();
+
+
+    }
+
   }
 
   Widget nameTextFromField() {
@@ -87,7 +96,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Register'),
-        actions: <Widget>[registerButton()],
+        actions: <Widget>[registerButton(context)],
       ),
       body: Form(
         key: formKey,
