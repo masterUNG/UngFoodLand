@@ -42,6 +42,11 @@ class _AuthenState extends State<Authen> {
 
     String urlPHP = 'https://www.androidthai.in.th/tid/getUserWhereUserMaster.php?isAdd=true&User=$user';
 
+    var response = await get(urlPHP);
+    var result = json.decode(response.body);
+    print('result ==> $result');
+
+
   }
 
   Widget showPassword() {
