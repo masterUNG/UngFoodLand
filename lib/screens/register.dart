@@ -13,9 +13,7 @@ class _RegisterState extends State<Register> {
       icon: Icon(Icons.cloud_upload),
       onPressed: () {
         print('You Click Register');
-        if (formKey.currentState.validate()) {
-          
-        }
+        if (formKey.currentState.validate()) {}
       },
     );
   }
@@ -36,6 +34,11 @@ class _RegisterState extends State<Register> {
     return TextFormField(
       decoration:
           InputDecoration(labelText: 'User :', hintText: 'Type Your User'),
+      validator: (String value) {
+        if (value.length == 0) {
+          return 'กรุณากรอก User ด้วยสิคะ';
+        }
+      },
     );
   }
 
@@ -43,6 +46,11 @@ class _RegisterState extends State<Register> {
     return TextFormField(
       decoration:
           InputDecoration(labelText: 'Password :', hintText: 'More 6 Charator'),
+      validator: (String value) {
+        if (value.length <= 5) {
+          return 'กรุณา กรอก Password ให้มากกว่า 6 ตัวอักษร คะ';
+        }
+      },
     );
   }
 
@@ -53,7 +61,8 @@ class _RegisterState extends State<Register> {
         title: Text('Register'),
         actions: <Widget>[registerButton()],
       ),
-      body: Form(key: formKey,
+      body: Form(
+        key: formKey,
         child: Container(
           padding: EdgeInsets.all(50.0),
           child: Column(
